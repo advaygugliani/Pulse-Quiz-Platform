@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pulse</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div class="bar">
+<span class="logo">Pulse</span>
+{% if user %}
+<a href="/home/{{ user.username }}">Home</a>
+<a href="/leaderboard/{{ user.username }}">Leaderboard</a>
+{% if user.role == 'admin' %}
+<a href="/admin/{{ user.username }}">Admin</a>
+{% endif %}
+<a href="/login">Logout ({{ user.username }})</a>
+{% else %}
+<a href="/login">Login</a>
+<a href="/register">Register</a>
+{% endif %}
+</div>
+<div class="page">
+{% block content %}{% endblock %}
+</div>
+</body>
+</html>

@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Admin</h2>
+
+<h3>Scores</h3>
+{% if stats %}
+<table>
+<tr><td>Students finished</td><td>{{ stats.count }}</td></tr>
+<tr><td>Mean</td><td>{{ stats.mean }}</td></tr>
+<tr><td>Median</td><td>{{ stats.median }}</td></tr>
+<tr><td>Highest</td><td>{{ stats.highest }}</td></tr>
+<tr><td>Lowest</td><td>{{ stats.lowest }}</td></tr>
+</table>
+{% else %}
+<p>No scores yet.</p>
+{% endif %}
+
+<h3>Add a question</h3>
+{% if message %}
+<p class="message">{{ message }}</p>
+{% endif %}
+<form method="post" action="/add/{{ user.username }}">
+Question
+<input type="text" name="text">
+Option A
+<input type="text" name="a">
+Option B
+<input type="text" name="b">
+Option C
+<input type="text" name="c">
+Option D
+<input type="text" name="d">
+Correct answer
+<select name="answer">
+<option value="A">A</option>
+<option value="B">B</option>
+<option value="C">C</option>
+<option value="D">D</option>
+</select>
+<button type="submit">Add question</button>
+</form>
+
+<h3>All questions</h3>
+<table>
+<tr>
+<th>#</th>
+<th>Question</th>
+<th>Answer</th>
+<th></th>
+</tr>
+{% for q in questions %}
+<tr>
+<td>{{ loop.index }}</td>
+<td>{{ q.text }}</td>
+<td>{{ q.answer }}</td>
+<td>
+<form method="post" action="/delete/{{ user.username }}/{{ q.id }}">
+<button type="submit">Delete</button>
+</form>
+</td>
+</tr>
+{% endfor %}
+</table>
+{% endblock %}

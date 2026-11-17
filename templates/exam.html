@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Exam</h2>
+<p>Submit before {{ deadline }}.</p>
+<form method="post" action="/submit/{{ user.username }}">
+{% for q in questions %}
+<div class="question">
+<p><b>{{ loop.index }}. {{ q.text }}</b></p>
+<label class="option"><input type="radio" name="q{{ q.id }}" value="A"> {{ q.a }}</label>
+<label class="option"><input type="radio" name="q{{ q.id }}" value="B"> {{ q.b }}</label>
+<label class="option"><input type="radio" name="q{{ q.id }}" value="C"> {{ q.c }}</label>
+<label class="option"><input type="radio" name="q{{ q.id }}" value="D"> {{ q.d }}</label>
+</div>
+{% endfor %}
+<button type="submit">Submit exam</button>
+</form>
+{% endblock %}

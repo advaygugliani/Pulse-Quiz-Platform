@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Welcome, {{ user.username }}</h2>
+{% if attempt is none %}
+<p>The exam has {{ total }} questions and you get {{ minutes }} minutes.</p>
+<p>You can only take it once.</p>
+{% if total > 0 %}
+<form method="post" action="/start/{{ user.username }}">
+<button type="submit">Start exam</button>
+</form>
+{% else %}
+<p>There are no questions yet.</p>
+{% endif %}
+{% elif attempt.status == 'started' %}
+<p>Your exam is in progress.</p>
+<p><a href="/exam/{{ user.username }}">Continue exam</a></p>
+{% else %}
+<p>You have finished the exam.</p>
+<p><a href="/result/{{ user.username }}">See my result</a></p>
+{% endif %}
+{% endblock %}
